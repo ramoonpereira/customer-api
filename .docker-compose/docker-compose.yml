@@ -10,9 +10,17 @@ services:
       MYSQL_PASSWORD: passdb
     ports:
       - "3306:3306"
+    volumes:
+      - 'docker_data:/data/var/lib/mysql'
 
   portainer:
     image: portainer/portainer-ce
     restart: always
     ports:
       - '9000:9000'
+    volumes:
+      - 'docker_data:/data/var/lib/portainer'
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  docker_data:
