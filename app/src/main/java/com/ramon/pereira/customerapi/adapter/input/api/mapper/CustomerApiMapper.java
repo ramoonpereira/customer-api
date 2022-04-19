@@ -4,6 +4,9 @@ import com.ramon.pereira.customerapi.adapter.input.api.dto.request.CreateCustome
 import com.ramon.pereira.customerapi.adapter.input.api.dto.response.CustomerResponseDto;
 import com.ramon.pereira.customerapi.core.domain.Customer;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
@@ -15,6 +18,12 @@ public class CustomerApiMapper {
         .cpf(createCustomerRequestDto.getCpf())
         .name(createCustomerRequestDto.getName())
         .build();
+  }
+
+  public List<CustomerResponseDto> toListResponseDto(@NonNull final List<Customer> customer) {
+    return customer.stream()
+        .map(CustomerApiMapper::toResponseDto)
+        .collect(Collectors.toList());
   }
 
   public CustomerResponseDto toResponseDto(@NonNull final Customer customer) {
