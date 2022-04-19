@@ -1,9 +1,8 @@
-package com.ramon.pereira.customerapi.adapter.input.mapper;
+package com.ramon.pereira.customerapi.adapter.input.api.mapper;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import com.ramon.pereira.customerapi.adapter.input.api.dto.request.CreateCustomerRequestDto;
 import com.ramon.pereira.customerapi.adapter.input.api.dto.response.CustomerResponseDto;
-import com.ramon.pereira.customerapi.adapter.input.api.mapper.CustomerApiMapper;
 import com.ramon.pereira.customerapi.core.domain.Customer;
 import java.time.ZonedDateTime;
 import java.util.List;

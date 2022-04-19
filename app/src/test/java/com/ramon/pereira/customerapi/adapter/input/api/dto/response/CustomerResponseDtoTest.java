@@ -1,7 +1,6 @@
-package com.ramon.pereira.customerapi.adapter.input.dto.response;
+package com.ramon.pereira.customerapi.adapter.input.api.dto.response;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import com.ramon.pereira.customerapi.adapter.input.api.dto.response.CustomerResponseDto;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;

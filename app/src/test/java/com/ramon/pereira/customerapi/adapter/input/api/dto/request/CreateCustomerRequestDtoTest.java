@@ -1,7 +1,6 @@
-package com.ramon.pereira.customerapi.adapter.input.dto.request;
+package com.ramon.pereira.customerapi.adapter.input.api.dto.request;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import com.ramon.pereira.customerapi.adapter.input.api.dto.request.CreateCustomerRequestDto;
 import org.junit.jupiter.api.Test;
 
 class CreateCustomerRequestDtoTest {
