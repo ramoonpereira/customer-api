@@ -18,6 +18,7 @@
 		<spring-cloud-dependencies.version>2021.0.1</spring-cloud-dependencies.version>
 		<mysql.version>8.0.28</mysql.version>
 		<flyway-core.version>8.5.8</flyway-core.version>
+		<archunit.version>0.23.1</archunit.version>
 	</properties>
 
 	<dependencyManagement>
@@ -75,6 +76,12 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.tngtech.archunit</groupId>
+			<artifactId>archunit</artifactId>
+			<version>${archunit.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
