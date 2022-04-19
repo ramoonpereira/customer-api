@@ -19,7 +19,7 @@ import org.hibernate.annotations.Type;
 @Data
 @Builder
 @Entity
-@Table(name = "refund")
+@Table(name = "customer", schema = "customerdb")
 public class Customer {
 
   @Id
