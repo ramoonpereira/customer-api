@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, UUID> {
 
-  Optional<Customer> findByCpf(final Long cpf);
+  Optional<Customer> findByCpf(final String cpf);
 
 }

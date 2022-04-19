@@ -32,7 +32,7 @@ public class Customer {
   private String name;
 
   @Column(name = "cpf")
-  private Long cpf;
+  private String cpf;
 
   @Column(name = "updated_at")
   private ZonedDateTime updatedAt;
