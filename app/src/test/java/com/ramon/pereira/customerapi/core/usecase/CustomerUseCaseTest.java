@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 import com.ramon.pereira.customerapi.core.domain.Customer;
 import com.ramon.pereira.customerapi.core.exception.ConflictCustomerException;
-import com.ramon.pereira.customerapi.core.usecase.port.CustomerRepository;
+import com.ramon.pereira.customerapi.core.usecase.port.CustomerPersistencePort;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ import javax.persistence.EntityNotFoundException;
 class CustomerUseCaseTest {
 
   @Mock
-  private CustomerRepository customerRepository;
+  private CustomerPersistencePort customerPersistencePort;
 
   @InjectMocks
   private CustomerUseCase customerUseCase;
@@ -32,7 +32,7 @@ class CustomerUseCaseTest {
   void shouldReturnCustomerWhenCallGetByUuidThenReturnCustomer() {
     final var customer = buildCustomer();
 
-    when(customerRepository.getById(customer.getUuid()))
+    when(customerPersistencePort.getByUuid(customer.getUuid()))
         .thenReturn(customer);
 
     assertThat(customerUseCase.getByUuid(customer.getUuid()))
@@ -44,7 +44,7 @@ class CustomerUseCaseTest {
   void shouldReturnCustomerWhenCallGetByUuidThenReturnEntityNotFoundException() {
     final var uuid = UUID.randomUUID();
 
-    when(customerRepository.getById(uuid))
+    when(customerPersistencePort.getByUuid(uuid))
         .thenThrow(new EntityNotFoundException());
 
     assertThatThrownBy(() -> customerUseCase.getByUuid(uuid))
@@ -55,7 +55,7 @@ class CustomerUseCaseTest {
   void shouldReturnCustomerWhenCallGetCustomersThenReturnResults() {
     final var customers = List.of(buildCustomer());
 
-    when(customerRepository.findAll())
+    when(customerPersistencePort.getAll())
         .thenReturn(customers);
 
     assertThat(customerUseCase.getCustomers())
@@ -65,7 +65,7 @@ class CustomerUseCaseTest {
 
   @Test
   void shouldReturnCustomerWhenCallGetCustomersThenReturnEmptyResults() {
-    when(customerRepository.findAll())
+    when(customerPersistencePort.getAll())
         .thenReturn(Collections.emptyList());
 
     assertThat(customerUseCase.getCustomers())
@@ -82,10 +82,10 @@ class CustomerUseCaseTest {
         .build();
     final var customerCreated = buildCustomer();
 
-    when(customerRepository.findByCpf(customerCreate.getCpf()))
-        .thenReturn(Optional.empty());
+    when(customerPersistencePort.getByCpf(customerCreate.getCpf()))
+        .thenThrow(new EntityNotFoundException());
 
-    when(customerRepository.saveAndFlush(customerCreate))
+    when(customerPersistencePort.insert(customerCreate))
         .thenReturn(customerCreated);
 
     final var entity = customerUseCase.createCustomer(customerCreate);
@@ -109,8 +109,8 @@ class CustomerUseCaseTest {
 
     final var customerExist = buildCustomer();
 
-    when(customerRepository.findByCpf(customerCreate.getCpf()))
-        .thenReturn(Optional.of(customerExist));
+    when(customerPersistencePort.getByCpf(customerCreate.getCpf()))
+        .thenReturn(customerExist);
 
     assertThatThrownBy(() -> customerUseCase.createCustomer(customerCreate))
         .isExactlyInstanceOf(ConflictCustomerException.class)

@@ -17,9 +17,10 @@ class ArchitectureTest {
         .layer("Domain").definedBy("com.ramon.pereira.customerapi.core.domain..")
         .layer("UseCase").definedBy("com.ramon.pereira.customerapi.core.usecase..")
         .layer("Input").definedBy("com.ramon.pereira.customerapi.adapter.input..")
+        .layer("Output").definedBy("com.ramon.pereira.customerapi.adapter.output..")
 
-        .whereLayer("Domain").mayOnlyBeAccessedByLayers("Input", "UseCase")
-        .whereLayer("UseCase").mayOnlyBeAccessedByLayers("Input");
+        .whereLayer("Domain").mayOnlyBeAccessedByLayers("Input", "Output", "UseCase")
+        .whereLayer("UseCase").mayOnlyBeAccessedByLayers("Input", "Output");
 
     rule.check(importedClasses);
   }
