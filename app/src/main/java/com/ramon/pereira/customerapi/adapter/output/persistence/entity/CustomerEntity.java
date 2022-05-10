@@ -1,13 +1,17 @@
 package com.ramon.pereira.customerapi.adapter.output.persistence.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "customer", schema = "customerdb")

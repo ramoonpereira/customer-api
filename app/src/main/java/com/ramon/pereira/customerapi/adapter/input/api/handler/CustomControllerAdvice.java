@@ -23,7 +23,7 @@ class CustomControllerAdvice extends ResponseEntityExceptionHandler {
   @ExceptionHandler(value = {EntityNotFoundException.class,})
   protected ResponseEntity<Object> handleNotFound(
       EntityNotFoundException ex, WebRequest request) {
-    return handleExceptionInternal(ex, ex.getMessage(),
+    return handleExceptionInternal(ex, "Resource Not Found",
         new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 
