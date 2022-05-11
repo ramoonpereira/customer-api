@@ -13,7 +13,7 @@ class CustomerApiMapperTest {
 
 
   @Test
-  void CustomerApiMapper_ToDomain() {
+  void customerApiMapper_ToDomain() {
     final var customerRequest = CreateCustomerRequestDto.builder()
         .name("name")
         .cpf("12345678910")
@@ -25,7 +25,7 @@ class CustomerApiMapperTest {
   }
 
   @Test
-  void CustomerApiMapper_ToListResponseDto() {
+  void customerApiMapper_ToListResponseDto() {
     final var customers = List.of(Customer.builder()
         .name("name")
         .cpf("12345678910")
@@ -69,7 +69,7 @@ class CustomerApiMapperTest {
   }
 
   @Test
-  void CustomerApiMapper_ToResponseDto() {
+  void customerApiMapper_ToResponseDto() {
     final var customer = Customer.builder()
         .name("name")
         .cpf("12345678910")
