@@ -20,6 +20,9 @@
 		<maven.compiler.target>17</maven.compiler.target>
 		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
 		<maven-release-plugin-version>3.0.0-M5</maven-release-plugin-version>
+		<jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+		<coverage.line>0.8</coverage.line>
+		<maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
 	</properties>
 
 	<build>
@@ -37,12 +40,65 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<argLine>@{argLine} -Xmx1024m</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>${maven-release-plugin-version}</version>
 				<configuration>
 					<tagNameFormat>v@{project.version}</tagNameFormat>
 					<updateWorkingCopyVersions>false</updateWorkingCopyVersions>
 					<pushChanges>false</pushChanges>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>BUNDLE</element>
+									<limits>
+										<limit>
+											<counter>LINE</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>${coverage.line}</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<exclude>com/ramon/pereira/customerapi/*Application.*</exclude>
+						<exclude>com/ramon/pereira/customerapi/output/persistence/repository/*</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
