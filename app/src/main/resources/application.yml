@@ -10,3 +10,15 @@ spring:
   flyway:
     check-location: true
     enabled: true
+management:
+  endpoints.web.exposure.include: '*'
+  metrics.export.prometheus.enabled: true
+  endpoint:
+    metrics.enabled: false
+    prometheus.enabled: true
+    shutdown.enabled: true
+    health:
+      show-details: always
+      probes.enabled: true
+      livenessState.enabled: true
+      readinessState.enabled: true
